@@ -1,7 +1,7 @@
 from ..models.urls import UrlDB, BaseUrl
 from fastapi import APIRouter, Response
 
-router = APIRouter(tags=["Redrict Url"], prefix="/redir")
+router = APIRouter(tags=["Redrict Url"], prefix="/rd")
 
 
 @router.get("/{target}")
