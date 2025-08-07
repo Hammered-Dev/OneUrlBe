@@ -1,0 +1,14 @@
+.venv/
+.venv
+.vscode/
+.vscode
+.env
+.env.example
+.git/
+.git
+.gitignore
+poetry.lock
+__pycache__/
+__pycache__
+test
+test/
