@@ -1,14 +1,19 @@
+import os
+
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import SQLModel
 from contextlib import asynccontextmanager
 from fastapi.openapi.docs import get_swagger_ui_html, get_redoc_html
 from fastapi.staticfiles import StaticFiles
+from dotenv import load_dotenv
 
 from .url.url import router as url_router
 from .manage.manage import router as manage_router
 from .services.database import create_and_check_db
 from .models.urls import UrlDB
+
+load_dotenv()
 
 
 @asynccontextmanager
@@ -17,13 +22,20 @@ async def init(app: FastAPI):
     yield
 
 
-app = FastAPI(lifespan=init, docs_url=None, title="OneUrl")
+app = FastAPI(lifespan=init, docs_url=None, title="OneUrl", redoc_url=None)
 
 app.include_router(url_router)
 app.include_router(manage_router)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-cors_origins = ["http://localhost", "http://localhost:3000"]
+cors_origins = [
+    "http://localhost",
+    "http://localhost:3000, http://127.0.0.1, http://127.0.0.1:3000",
+]
+
+env_origins = os.getenv("CORS_ALLOWED_ORIGINS")
+if env_origins:
+    cors_origins += env_origins.split(",")
 
 app.add_middleware(
     CORSMiddleware,
