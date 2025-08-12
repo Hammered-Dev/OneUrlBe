@@ -16,7 +16,7 @@ async def get_all_urls(session: SessionDep) -> AllUrlResponse:
 
 
 @router.post("/urls")
-async def add_new_url(url_record: BaseUrl, session: SessionDep):
+async def add_new_url(url_record: BaseUrl, session: SessionDep) -> AddUrlMess:
     state = select(UrlDB).where(UrlDB.target == url_record.target)
     res = session.exec(state).first()
     if res:
