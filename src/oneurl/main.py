@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import SQLModel
 from contextlib import asynccontextmanager
-from fastapi.openapi.docs import get_swagger_ui_html
+from fastapi.openapi.docs import get_swagger_ui_html, get_redoc_html
 from fastapi.staticfiles import StaticFiles
 
 from .url.url import router as url_router
@@ -48,4 +48,15 @@ async def swagger_ui_html(req: Request):
         init_oauth=app.swagger_ui_init_oauth,
         swagger_favicon_url="/static/favicon.ico",
         swagger_ui_parameters=app.swagger_ui_parameters,
+    )
+
+
+@app.get("/redoc", include_in_schema=False)
+async def redoc_ui_html(req: Request):
+    root_path = req.scope.get("root_path", "").rstrip("/")
+    openapi_url = root_path + app.openapi_url
+    return get_redoc_html(
+        openapi_url=openapi_url,
+        title=app.title + " - Redoc UI",
+        redoc_favicon_url="/static/favicon.ico",
     )
