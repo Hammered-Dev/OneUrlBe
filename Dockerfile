@@ -8,4 +8,6 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD [ "python3", "-m", "src/oneurl/main.py" ]
+EXPOSE 8000
+
+CMD [ "uvicorn", "--host", "0.0.0.0", "src.oneurl.main:app" ]
