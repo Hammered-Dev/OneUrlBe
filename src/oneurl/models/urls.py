@@ -7,4 +7,4 @@ class BaseUrl(SQLModel):
 
 
 class UrlDB(BaseUrl, table=True):
-    id: int = Field(primary_key=True)
+    id: int | None = Field(primary_key=True, default=None)
