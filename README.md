@@ -14,6 +14,11 @@ OneUrl is a light-weight platform to get your links in one place and access them
 | POSTGRES_USRNAME | PostgreSQL user name | postgres  ... | Optional (Default = postgres) |
 | POSTGRES_PASS | PostgreSQL user password | password  ... | Required if you have |
 | POSTGRES_DBMANE | PostgreSQL database name | postgres  ... | Optional (Default = postgres) |
+| CORS_ALLOWED_ORIGINS | Allowed CORS origin | Optional |
+| REDIS_HOST | Redis host | localhost  127.0.0.1  redis  ... | Required |
+| REDIS_PORT | Redis port | 6379  ... | Optional (Default = 6379) |
+| REDIS_DB | Redis db number | Optional (Default = 0) |
+
 ## API docs
 The API document will be available under the path below:
 1. SwaggerUI: `/docs`
@@ -28,3 +33,4 @@ The API document will be available under the path below:
 ```bash
 poetry sync
 ```
+
