@@ -10,6 +10,8 @@ from dotenv import load_dotenv
 
 from .url.url import router as url_router
 from .manage.manage import router as manage_router
+from .settings.settings import router as settings_router
+from .services.redis import check_if_default_settings_exists
 from .services.database import create_and_check_db
 from .models.urls import UrlDB
 
@@ -19,6 +21,7 @@ load_dotenv()
 @asynccontextmanager
 async def init(app: FastAPI):
     create_and_check_db()
+    check_if_default_settings_exists()
     yield
 
 
@@ -26,6 +29,7 @@ app = FastAPI(lifespan=init, docs_url=None, title="OneUrl", redoc_url=None)
 
 app.include_router(url_router)
 app.include_router(manage_router)
+app.include_router(settings_router)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 cors_origins = [
