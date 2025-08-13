@@ -1,6 +1,6 @@
 [project]
 name = "oneurl"
-version = "0.1.0"
+version = "0.0.1"
 description = ""
 authors = [
     {name = "Timothy0508",email = "timothytseng508@gmail.com"}
