@@ -11,3 +11,9 @@ async def get_all_settings() -> SettingModel:
     r = Redis(host="localhost", decode_responses=True)
     res = r.hgetall("settings:general")
     return SettingModel.model_validate(res)
+
+
+@router.put("", status_code=204)
+async def update_all_settings(setting: SettingModel):
+    r = Redis(host="localhost", decode_responses=True)
+    r.hset("settings:general", mapping=setting.model_dump())
